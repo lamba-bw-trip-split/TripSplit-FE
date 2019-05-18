@@ -1,5 +1,8 @@
 import React from 'react';
 import ActivityList from './ActivityList/ActivityList';
+import AddActivity from '../AddActivity/AddActivity';
+
+//import { Button } from 'reactstrap';
 
 class Trip extends React.Component {
   state = {
@@ -39,6 +42,7 @@ class Trip extends React.Component {
           <h2>Trip: {this.state.name}</h2>
           <p>Number of people: {this.state.people.length}</p>
           <ActivityList activities={this.state.activities} />
+          <AddActivity people={this.state.people} />
         </div>
       </>
     );
