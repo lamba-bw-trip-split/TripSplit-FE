@@ -1,52 +1,80 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { addItem } from '../../actions';
+
 import ActivityList from './ActivityList/ActivityList';
 import AddActivity from '../AddActivity/AddActivity';
 
 //import { Button } from 'reactstrap';
 
 class Trip extends React.Component {
-  state = {
-    name: 'chicago',
-    id: 0,
-    total: 100,
-    activities: [
-      {
-        name: 'Lunch',
-        whoPaid: 'James',
-        price: 100,
-        id: 0
-      },
-      {
-        name: 'Cabin',
-        whoPaid: 'James',
-        price: 400,
-        id: 1
-      }
-    ],
-    people: [
-      {
-        name: 'James',
-        id: 0
-      },
-      {
-        name: 'Carole',
-        id: 1
-      }
-    ]
-  };
+  state = {};
+
+  componentDidMount() {
+    console.log(this.props);
+  }
+
+  // showTotal = () => {
+  //   let total = 0;
+  //   this.state.activities.forEach(item => (total += item.price));
+  //   return total;
+  // };
+
+  // calShares = () => {
+  //   const total = this.showTotal();
+  //   const eachShare = total / this.state.people.length;
+  //   return eachShare;
+  // };
+
+  // calOwe = () => {
+  //   const people = this.state.people.map(person => person);
+  //   const activities = this.state.activities.map(item => item);
+  //   const newPeople = people.map(person => {
+  //     activities.forEach(item => {
+  //       if (item.whoPaid === person.name) {
+  //         person.paid += 50;
+  //         // console.log(person.paid);
+  //       }
+  //     });
+  //   });
+
+  //   this.setState({
+  //     people: newPeople
+  //   });
+  //   // console.log(this.state.people);
+  //   // console.log(this.state);
+  //   window.location.reload(true);
+  // };
 
   render() {
+    // console.log(this.props);
     return (
       <>
         <div>
-          <h2>Trip: {this.state.name}</h2>
-          <p>Number of people: {this.state.people.length}</p>
-          <ActivityList activities={this.state.activities} />
-          <AddActivity people={this.state.people} />
+          <h2>Trip: {this.props.trip.name}</h2>
+          <p>Number of people: {this.props.trip.people.length}</p>
+          <ActivityList activities={this.props.trip.activities} />
+          <AddActivity
+            people={this.props.trip.people}
+            addItem={this.props.addItem}
+          />
+          {/* <h6>The total Trip: ${this.showTotal()}</h6>
+          <h6>Each Share: ${this.calShares()}</h6> */}
         </div>
       </>
     );
   }
 }
 
-export default Trip;
+// const mapStateToProps = state => {
+//   return {
+//     trips: state.trips
+//   };
+// };
+
+export default connect(
+  null,
+  {
+    addItem
+  }
+)(Trip);

@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import {
   ButtonDropdown,
   DropdownToggle,
@@ -9,10 +11,12 @@ import {
 
 class AddActivity extends React.Component {
   state = {
-    name: '',
-    id: null,
-    whoPaid: '',
-    price: null,
+    item: {
+      name: '',
+      id: null,
+      whoPaid: '',
+      price: ''
+    },
     dropdownOpen: false
   };
 
@@ -24,28 +28,41 @@ class AddActivity extends React.Component {
 
   handleChanges = e => {
     this.setState({
-      [e.target.name]: e.target.value
+      item: {
+        [e.target.name]: e.target.value
+      }
     });
   };
 
   addActivity = e => {
     e.preventDefault();
+    const newItem = { ...this.state.item, id: Date.now() };
+    this.props.addItem(newItem);
+    this.setState({
+      item: {
+        name: '',
+        id: null,
+        whoPaid: '',
+        price: ''
+      }
+    });
   };
 
   render() {
+    console.log(this.props.people);
     return (
       <form>
         <input
           type="text"
           placeholder="Name"
-          value={this.state.name}
+          value={this.state.item.name}
           name="name"
           onChange={this.handleChanges}
         />
         <input
           type="text"
           placeholder="$Price"
-          value={this.state.price}
+          value={this.state.item.price}
           name="price"
           onChange={this.handleChanges}
         />
@@ -56,9 +73,10 @@ class AddActivity extends React.Component {
           </DropdownToggle>
           <DropdownMenu>
             <DropdownItem header>Select a name</DropdownItem>
-            {this.props.people.map(person => (
-              <DropdownItem>{person.name}</DropdownItem>
-            ))}
+            {this.props.people &&
+              this.props.people.map(person => (
+                <DropdownItem key={person.id}>{person.name}</DropdownItem>
+              ))}
           </DropdownMenu>
         </ButtonDropdown>
         <Button onClick={this.addActivity} color="info">
@@ -69,4 +87,11 @@ class AddActivity extends React.Component {
   }
 }
 
-export default AddActivity;
+const mapStateToProps = state => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  {}
+)(AddActivity);
