@@ -1,16 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Trip from '../Trip/Trip';
 
 class TripsList extends React.Component {
   render() {
-    console.log(this.props.trips);
     return (
       <div>
-        {this.props.trips.map(trip => {
-          return <Trip key={trip.id} trip={trip} />;
-        })}
+        {this.props.trips.map(trip => (
+          <Link to={`/trips/${trip.id}`}>
+            <Trip key={trip.id} trip={trip} />;
+          </Link>
+        ))}
       </div>
     );
   }

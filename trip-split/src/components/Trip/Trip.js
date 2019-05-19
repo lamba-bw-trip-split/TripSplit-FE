@@ -2,9 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addItem } from '../../actions';
 
-import ActivityList from './ActivityList/ActivityList';
-import AddActivity from '../AddActivity/AddActivity';
-
 //import { Button } from 'reactstrap';
 
 class Trip extends React.Component {
@@ -53,13 +50,6 @@ class Trip extends React.Component {
         <div>
           <h2>Trip: {this.props.trip.name}</h2>
           <p>Number of people: {this.props.trip.people.length}</p>
-          <ActivityList activities={this.props.trip.activities} />
-          <AddActivity
-            people={this.props.trip.people}
-            addItem={this.props.addItem}
-          />
-          {/* <h6>The total Trip: ${this.showTotal()}</h6>
-          <h6>Each Share: ${this.calShares()}</h6> */}
         </div>
       </>
     );
