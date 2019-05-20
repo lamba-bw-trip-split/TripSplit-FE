@@ -4,6 +4,7 @@ import { Route, NavLink } from 'react-router-dom';
 import TripsList from './components/TripsList/TripsList';
 import TripCard from './components/Trip/TripCard/TripCard';
 import Login from './components/Login/Login';
+import SignUp from './components/SignUp/SignUp';
 
 import './App.css';
 
@@ -13,9 +14,12 @@ function App() {
       <div>
         <NavLink to="/">Home </NavLink>
         <NavLink to="/trips"> Trips</NavLink>
+        <NavLink to="/login"> Login</NavLink>
+        <NavLink to="/signup"> SignUp</NavLink>
       </div>
       <header className="App-header">
         <Route path="/login" component={Login} />
+        <Route path="/signup" component={SignUp} />
         <Route path="/trips" component={TripsList} />
         <Route path="/tirps/:id" component={TripCard} />
       </header>

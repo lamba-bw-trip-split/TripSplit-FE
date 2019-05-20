@@ -73,7 +73,8 @@ const initialState = {
   loggingIn: false,
   token: localStorage.getItem('token'),
   error: '',
-  errorStatusCode: null
+  errorStatusCode: null,
+  signingUp: false
 };
 
 export const rootReducer = (state = initialState, action) => {

@@ -11,6 +11,17 @@ export const login = creds => dispatch => {
   });
 };
 
+export const SIGNUP_START = 'SIGNUP_START';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+
+export const signup = creds => dispatch => {
+  dispatch({ type: SIGNUP_START });
+  return axios
+    .post('', creds)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+};
+
 export const ADD_ITEM = 'ADD_ITEM';
 
 export const addItem = (item, id) => {
