@@ -1,4 +1,9 @@
-import { ADD_ITEM, LOGIN_SUCCESS, LOGIN_START } from '../actions';
+import {
+  ADD_ITEM,
+  LOGIN_SUCCESS,
+  LOGIN_START,
+  LOGIN_FAILURE
+} from '../actions';
 
 const initialState = {
   trips: [
@@ -82,13 +87,21 @@ export const rootReducer = (state = initialState, action) => {
     case LOGIN_START:
       return {
         ...state,
-        loggingIn: true
+        loggingIn: true,
+        error: ''
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
         loggingIn: false,
-        token: action.payload
+        token: action.payload,
+        error: ''
+      };
+    case LOGIN_FAILURE:
+      return {
+        ...state,
+        loggingIn: false,
+        error: action.payload
       };
     case ADD_ITEM:
       return {

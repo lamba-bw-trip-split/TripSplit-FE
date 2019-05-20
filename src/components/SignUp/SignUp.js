@@ -2,9 +2,9 @@ import React from 'react';
 import Loader from 'react-loader-spinner';
 import { connect } from 'react-redux';
 
-import { login } from '../../actions';
+import { signup } from '../../actions';
 
-class Login extends React.Component {
+class Signup extends React.Component {
   state = {
     credentials: {
       username: '',
@@ -33,7 +33,7 @@ class Login extends React.Component {
     return (
       <div className="login-form">
         <form className="form" onSubmit={this.signup}>
-          <label for="username">Account</label>
+          <label htmlFor="username">Account</label>
           <input
             type="text"
             name="username"
@@ -41,7 +41,7 @@ class Login extends React.Component {
             value={this.state.credentials.username}
             onChange={this.handleChange}
           />
-          <label for="password">Password</label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             name="password"
@@ -49,7 +49,7 @@ class Login extends React.Component {
             value={this.state.credentials.password}
             onChange={this.handleChange}
           />
-          <label for="email">Email</label>
+          <label htmlFor="email">Email</label>
           <input
             type="text"
             name="email"
@@ -80,5 +80,5 @@ const mapStateToProps = ({ error, signingUp }) => ({
 
 export default connect(
   mapStateToProps,
-  { login }
-)(Login);
+  { signup }
+)(Signup);

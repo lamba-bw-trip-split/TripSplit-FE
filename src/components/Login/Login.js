@@ -23,16 +23,17 @@ class Login extends React.Component {
 
   login = e => {
     e.preventDefault();
-    this.props
-      .login(this.state.credentials)
-      .then(() => this.props.history.push('/protected'));
+    this.props.login(this.state.credentials);
+    if (this.props.error !== '') {
+      this.props.history.push('/protected');
+    }
   };
 
   render() {
     return (
       <div className="login-form">
         <form className="form" onSubmit={this.login}>
-          <label for="username">Account</label>
+          <label htmlFor="username">Account</label>
           <input
             type="text"
             name="username"
@@ -40,7 +41,7 @@ class Login extends React.Component {
             value={this.state.credentials.username}
             onChange={this.handleChange}
           />
-          <label for="password">Password</label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             name="password"
