@@ -1,4 +1,4 @@
-import { ADD_ITEM } from '../actions';
+import { ADD_ITEM, LOGIN_SUCCESS, LOGIN_START } from '../actions';
 
 const initialState = {
   trips: [
@@ -69,15 +69,34 @@ const initialState = {
       ]
     }
   ],
-  pastTrips: []
+  pastTrips: [],
+  loggingIn: false,
+  token: localStorage.getItem('token'),
+  error: '',
+  errorStatusCode: null
 };
 
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case LOGIN_START:
+      return {
+        ...state,
+        loggingIn: true
+      };
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        loggingIn: false,
+        token: action.payload
+      };
     case ADD_ITEM:
       return {
         ...state,
-        trips: state.trips.map()
+        trips: state.trips.map(trip => {
+          if (trip.id === action.id) {
+            trip.activities.push(action.payload);
+          }
+        })
       };
     default:
       return state;

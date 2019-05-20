@@ -37,7 +37,7 @@ class AddActivity extends React.Component {
   addActivity = e => {
     e.preventDefault();
     const newItem = { ...this.state.item, id: Date.now() };
-    this.props.addItem(newItem);
+    this.props.addItem(newItem, this.props.id);
     this.setState({
       item: {
         name: '',
