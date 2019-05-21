@@ -2,7 +2,10 @@ import {
   ADD_ITEM,
   LOGIN_SUCCESS,
   LOGIN_START,
-  LOGIN_FAILURE
+  LOGIN_FAILURE,
+  SIGNUP_START,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAILURE
 } from '../actions';
 
 const initialState = {
@@ -79,7 +82,9 @@ const initialState = {
   token: localStorage.getItem('token'),
   error: '',
   errorStatusCode: null,
-  signingUp: false
+  signingUp: false,
+  signupMsg: '',
+  signedUp: false
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -95,13 +100,35 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         loggingIn: false,
         token: action.payload,
-        error: ''
+        error: '',
+        signupMsg: ''
       };
     case LOGIN_FAILURE:
       return {
         ...state,
         loggingIn: false,
         error: action.payload
+      };
+    case SIGNUP_START:
+      return {
+        ...state,
+        signingUp: true,
+        signupMsg: '',
+        signedUp: false
+      };
+    case SIGNUP_SUCCESS:
+      return {
+        ...state,
+        signingUp: false,
+        signupMsg: 'Account successfully created!',
+        signedUp: true
+      };
+    case SIGNUP_FAILURE:
+      return {
+        ...state,
+        error: 'Registration failed!',
+        signingUp: false,
+        signedUp: false
       };
     case ADD_ITEM:
       return {

@@ -5,6 +5,7 @@ import TripsList from './components/TripsList/TripsList';
 import TripCard from './components/Trip/TripCard/TripCard';
 import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 import './App.css';
 
@@ -20,8 +21,8 @@ function App() {
       <header className="App-header">
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/trips" component={TripsList} />
-        <Route path="/tirps/:id" component={TripCard} />
+        <PrivateRoute path="/trips" component={TripsList} />
+        <PrivateRoute path="/tirps/:id" component={TripCard} />
       </header>
     </div>
   );

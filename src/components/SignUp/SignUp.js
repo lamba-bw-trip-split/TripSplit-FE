@@ -1,5 +1,7 @@
 import React from 'react';
 import Loader from 'react-loader-spinner';
+
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { signup } from '../../actions';
@@ -24,14 +26,15 @@ class Signup extends React.Component {
 
   signup = e => {
     e.preventDefault();
-    this.props
-      .signup(this.state.credentials)
-      .then(() => this.props.history.push('/login'));
+    this.props.signup(this.state.credentials);
   };
 
   render() {
     return (
       <div className="login-form">
+        <h3>
+          Already have an account? Click to {<Link to="/login">Log in</Link>}
+        </h3>
         <form className="form" onSubmit={this.signup}>
           <label htmlFor="username">Account</label>
           <input
@@ -45,7 +48,7 @@ class Signup extends React.Component {
           <input
             type="password"
             name="password"
-            placeholder="••••••••"
+            placeholder="********"
             value={this.state.credentials.password}
             onChange={this.handleChange}
           />
@@ -73,9 +76,10 @@ class Signup extends React.Component {
   }
 }
 
-const mapStateToProps = ({ error, signingUp }) => ({
+const mapStateToProps = ({ error, signingUp, signedUp }) => ({
   error,
-  signingUp
+  signingUp,
+  signedUp
 });
 
 export default connect(
