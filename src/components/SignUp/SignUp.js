@@ -36,7 +36,7 @@ class Signup extends React.Component {
           Already have an account? Click to {<Link to="/login">Log in</Link>}
         </h3>
         <form className="form" onSubmit={this.signup}>
-          <label htmlFor="username">Account</label>
+          <label htmlFor="username">Username</label>
           <input
             type="text"
             name="username"
@@ -48,7 +48,7 @@ class Signup extends React.Component {
           <input
             type="password"
             name="password"
-            placeholder="********"
+            placeholder="Password"
             value={this.state.credentials.password}
             onChange={this.handleChange}
           />
@@ -63,11 +63,11 @@ class Signup extends React.Component {
           <div className="flex-spacer" />
           {this.props.error && <p className="error">{this.props.error}</p>}
 
-          <button>
+          <button className="button">
             {this.props.signingUp ? (
-              <Loader type="ThreeDots" color="#1f2a38" height="12" width="26" />
+              <Loader type="ThreeDots" color="white" height="12" width="26" />
             ) : (
-              'Sign Up'
+              <span>Sign Up</span>
             )}
           </button>
         </form>

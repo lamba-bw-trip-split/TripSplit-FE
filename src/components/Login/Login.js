@@ -1,8 +1,11 @@
 import React from 'react';
 import Loader from 'react-loader-spinner';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { login } from '../../actions';
+
+import './Login.scss';
 
 class Login extends React.Component {
   state = {
@@ -34,7 +37,7 @@ class Login extends React.Component {
       <div className="login-form">
         {this.props.signupMsg && <h2>this.props.signupMsg</h2>}
         <form className="form" onSubmit={this.login}>
-          <label htmlFor="username">Account</label>
+          <label htmlFor="username">Username</label>
           <input
             type="text"
             name="username"
@@ -46,21 +49,24 @@ class Login extends React.Component {
           <input
             type="password"
             name="password"
-            placeholder="********"
+            placeholder="Password"
             value={this.state.credentials.password}
             onChange={this.handleChange}
           />
           <div className="flex-spacer" />
           {this.props.error && <p className="error">{this.props.error}</p>}
 
-          <button>
+          <button className="button">
             {this.props.loggingIn ? (
               <Loader type="ThreeDots" color="#1f2a38" height="12" width="26" />
             ) : (
-              'Login'
+              <span>Login</span>
             )}
           </button>
         </form>
+        <h4>
+          Don't have an accout? <Link to="/signup">Register</Link>
+        </h4>
       </div>
     );
   }
