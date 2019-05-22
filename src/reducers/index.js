@@ -5,78 +5,14 @@ import {
   LOGIN_FAILURE,
   SIGNUP_START,
   SIGNUP_SUCCESS,
-  SIGNUP_FAILURE
+  SIGNUP_FAILURE,
+  FETCH_TRIPS_START,
+  FETCH_TRIPS_SUCCESS,
+  FETCH_TRIPS_FAILURE
 } from '../actions';
 
 const initialState = {
-  trips: [
-    {
-      name: 'chicago',
-      id: 0,
-      total: 100,
-      activities: [
-        {
-          name: 'Lunch',
-          whoPaid: 'James',
-          price: 100,
-          id: 0
-        },
-        {
-          name: 'Cabin',
-          whoPaid: 'James',
-          price: 400,
-          id: 1
-        }
-      ],
-      people: [
-        {
-          name: 'James',
-          id: 0,
-          owe: '',
-          paid: 0
-        },
-        {
-          name: 'Carole',
-          id: 1,
-          owe: '',
-          paid: 0
-        }
-      ]
-    },
-    {
-      name: 'Big Bear',
-      id: 1,
-      total: 800,
-      activities: [
-        {
-          name: 'Dinner',
-          whoPaid: 'Andy',
-          price: 100,
-          id: 0
-        },
-        {
-          name: 'Hotel',
-          whoPaid: 'Lindsay',
-          price: 400,
-          id: 1
-        }
-      ],
-      people: [
-        {
-          name: 'Andy',
-          id: 0,
-          owe: '',
-          paid: 0
-        },
-        {
-          name: 'Lindsay',
-          id: 1,
-          owe: '',
-          paid: 0
-        }
-      ]
-    }
-  ],
+  trips: [],
   pastTrips: [],
   loggingIn: false,
   token: localStorage.getItem('token'),
@@ -84,7 +20,8 @@ const initialState = {
   errorStatusCode: null,
   signingUp: false,
   signupMsg: '',
-  signedUp: false
+  signedUp: false,
+  fetchTrips: false
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -130,6 +67,25 @@ export const rootReducer = (state = initialState, action) => {
         signingUp: false,
         signedUp: false
       };
+    case FETCH_TRIPS_START:
+      return {
+        ...state,
+        error: '',
+        fetchTrips: true
+      };
+    case FETCH_TRIPS_SUCCESS:
+      return {
+        ...state,
+        fetchTrips: false,
+        error: '',
+        trips: action.payload
+      };
+    case FETCH_TRIPS_FAILURE:
+      return {
+        ...state,
+        fetchTrips: false,
+        error: action.payload
+      };
     case ADD_ITEM:
       return {
         ...state,
@@ -143,3 +99,70 @@ export const rootReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+// {
+//   name: 'chicago',
+//   id: 0,
+//   total: 100,
+//   activities: [
+//     {
+//       name: 'Lunch',
+//       whoPaid: 'James',
+//       price: 100,
+//       id: 0
+//     },
+//     {
+//       name: 'Cabin',
+//       whoPaid: 'James',
+//       price: 400,
+//       id: 1
+//     }
+//   ],
+//   people: [
+//     {
+//       name: 'James',
+//       id: 0,
+//       owe: '',
+//       paid: 0
+//     },
+//     {
+//       name: 'Carole',
+//       id: 1,
+//       owe: '',
+//       paid: 0
+//     }
+//   ]
+// },
+// {
+//   name: 'Big Bear',
+//   id: 1,
+//   total: 800,
+//   activities: [
+//     {
+//       name: 'Dinner',
+//       whoPaid: 'Andy',
+//       price: 100,
+//       id: 0
+//     },
+//     {
+//       name: 'Hotel',
+//       whoPaid: 'Lindsay',
+//       price: 400,
+//       id: 1
+//     }
+//   ],
+//   people: [
+//     {
+//       name: 'Andy',
+//       id: 0,
+//       owe: '',
+//       paid: 0
+//     },
+//     {
+//       name: 'Lindsay',
+//       id: 1,
+//       owe: '',
+//       paid: 0
+//     }
+//   ]
+// }

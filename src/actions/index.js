@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { axiosWithAuth } from '../axiosWithAuth';
 
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -10,7 +11,7 @@ export const login = creds => dispatch => {
     .post('https://tripsplitbe.herokuapp.com/auth/login', creds)
     .then(res => {
       console.log(res);
-      localStorage.setItem('token', res.data.payload);
+      localStorage.setItem('token', res.data.token);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data.payload });
     })
     .catch(err => {
@@ -45,4 +46,22 @@ export const addItem = (item, id) => {
     payload: item,
     id: id
   };
+};
+
+export const FETCH_TRIPS_START = 'FETCH_TRIPS_START';
+export const FETCH_TRIPS_SUCCESS = 'FETCH_TRIPS_SUCCESS';
+export const FETCH_TRIPS_FAILURE = 'FETCH_TRIPS_FAILURE';
+
+export const getTrips = () => dispatch => {
+  dispatch({ type: FETCH_TRIPS_START });
+  axiosWithAuth()
+    .get('/api/trips')
+    .then(res => {
+      console.log(res);
+      dispatch({ type: FETCH_TRIPS_SUCCESS, payload: res.data.trips });
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({ type: FETCH_TRIPS_FAILURE });
+    });
 };

@@ -15,6 +15,10 @@ class Login extends React.Component {
     }
   };
 
+  componentDidMount() {
+    console.log(this.props);
+  }
+
   handleChange = e => {
     this.setState({
       credentials: {
@@ -28,7 +32,7 @@ class Login extends React.Component {
     e.preventDefault();
     this.props.login(this.state.credentials);
     if (this.props.error !== '') {
-      this.props.history.push('/protected');
+      this.props.history.push('/trips');
     }
   };
 
@@ -65,7 +69,7 @@ class Login extends React.Component {
           </button>
         </form>
         <h4>
-          Don't have an accout? <Link to="/signup">Register</Link>
+          Don't have an account? <Link to="/signup">Register</Link>
         </h4>
       </div>
     );

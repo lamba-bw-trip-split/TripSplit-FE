@@ -1,0 +1,4 @@
+[build]
+base = "tirp-split/"
+publish = "tirp-split/build/"
+command = "yarn build"
