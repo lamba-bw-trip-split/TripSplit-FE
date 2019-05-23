@@ -1,0 +1,80 @@
+body {
+  margin: 0;
+  // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  //   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  //   sans-serif;
+  // -webkit-font-smoothing: antialiased;
+  // -moz-osx-font-smoothing: grayscale;
+  background-color: #282c34;
+  height: 100%;
+  box-sizing: content-box;
+}
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+@mixin center() {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+@mixin cbtn($width, $height, $bg-color, $font-color, $font-size) {
+  border-radius: 50px;
+  @include center;
+  width: $width;
+  height: $height;
+  background-color: $bg-color;
+  color: $font-color;
+  border: 1px solid wheat;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: $font-size;
+  font-family: 'Lato', sans-serif;
+  transition: all 0.5s;
+  user-select: none;
+  outline: none;
+
+  &:hover {
+    // background: lighten($bg-color, 20%);
+    background: #ff9f1c;
+    // color: @bg-color;
+
+    span {
+      padding-right: 30px;
+
+      &:after {
+        opacity: 1;
+        right: 0;
+      }
+    }
+  }
+  span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+    outline: none;
+
+    &:after {
+      content: '\00bb';
+      position: absolute;
+      font-size: 3.5rem;
+      opacity: 0;
+      top: -27px;
+      right: -20px;
+      transition: 0.5s;
+    }
+  }
+}
+
+$btnColor: #051da6;
+$btnFontSize: 26px;
+$btnFontColor: white;
+.button {
+  //   background: #ff9f1c;
+  //   border-radius: 15px;
+  //   height: 45px;
+  margin: 30px 0;
+  //   font-size: 20px;
+  @include cbtn(250px, 50px, $btnColor, $btnFontColor, $btnFontSize);
+  outline: none;
+}
