@@ -1,5 +1,4 @@
 import {
-  ADD_ITEM,
   LOGIN_SUCCESS,
   LOGIN_START,
   LOGIN_FAILURE,
@@ -8,7 +7,10 @@ import {
   SIGNUP_FAILURE,
   FETCH_TRIPS_START,
   FETCH_TRIPS_SUCCESS,
-  FETCH_TRIPS_FAILURE
+  FETCH_TRIPS_FAILURE,
+  ADD_TRIP_START,
+  ADD_TRIP_SUCCESS,
+  ADD_TRIP_FAILURE
 } from '../actions';
 
 const initialState = {
@@ -21,7 +23,8 @@ const initialState = {
   signingUp: false,
   signupMsg: '',
   signedUp: false,
-  fetchTrips: false
+  fetchTrips: false,
+  dataUpdate: false
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -71,98 +74,50 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         error: '',
-        fetchTrips: true
+        fetchTrips: true,
+        dataUpdate: true
       };
     case FETCH_TRIPS_SUCCESS:
       return {
         ...state,
         fetchTrips: false,
         error: '',
-        trips: action.payload
+        trips: action.payload,
+        dataUpdate: false
       };
     case FETCH_TRIPS_FAILURE:
       return {
         ...state,
         fetchTrips: false,
-        error: action.payload
+        error: action.payload,
+        dataUpdate: false
       };
-    case ADD_ITEM:
+    case ADD_TRIP_START:
       return {
         ...state,
-        trips: state.trips.map(trip => {
-          if (trip.id === action.id) {
-            trip.activities.push(action.payload);
-          }
-        })
+        dataUpdate: true
       };
+    case ADD_TRIP_SUCCESS:
+      return {
+        ...state,
+        dataUpdate: false
+      };
+    case ADD_TRIP_FAILURE:
+      return {
+        ...state,
+        dataUpdate: false
+      };
+
     default:
       return state;
   }
 };
 
-// {
-//   name: 'chicago',
-//   id: 0,
-//   total: 100,
-//   activities: [
-//     {
-//       name: 'Lunch',
-//       whoPaid: 'James',
-//       price: 100,
-//       id: 0
-//     },
-//     {
-//       name: 'Cabin',
-//       whoPaid: 'James',
-//       price: 400,
-//       id: 1
-//     }
-//   ],
-//   people: [
-//     {
-//       name: 'James',
-//       id: 0,
-//       owe: '',
-//       paid: 0
-//     },
-//     {
-//       name: 'Carole',
-//       id: 1,
-//       owe: '',
-//       paid: 0
-//     }
-//   ]
-// },
-// {
-//   name: 'Big Bear',
-//   id: 1,
-//   total: 800,
-//   activities: [
-//     {
-//       name: 'Dinner',
-//       whoPaid: 'Andy',
-//       price: 100,
-//       id: 0
-//     },
-//     {
-//       name: 'Hotel',
-//       whoPaid: 'Lindsay',
-//       price: 400,
-//       id: 1
-//     }
-//   ],
-//   people: [
-//     {
-//       name: 'Andy',
-//       id: 0,
-//       owe: '',
-//       paid: 0
-//     },
-//     {
-//       name: 'Lindsay',
-//       id: 1,
-//       owe: '',
-//       paid: 0
-//     }
-//   ]
-// }
+// case ADD_ITEM:
+//     return {
+//       ...state,
+//       trips: state.trips.map(trip => {
+//         if (trip.id === action.id) {
+//           trip.activities.push(action.payload);
+//         }
+//       })

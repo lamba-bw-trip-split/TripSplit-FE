@@ -15,10 +15,6 @@ class Login extends React.Component {
     }
   };
 
-  componentDidMount() {
-    console.log(this.props);
-  }
-
   handleChange = e => {
     this.setState({
       credentials: {
@@ -31,9 +27,11 @@ class Login extends React.Component {
   login = e => {
     e.preventDefault();
     this.props.login(this.state.credentials);
-    if (this.props.error !== '') {
-      this.props.history.push('/trips');
-    }
+    // .then(this.props.history.push('/trips'));
+    this.props.history.push('/trips');
+    // if (this.props.error !== '') {
+    //   this.props.history.push('/trips');
+    // }
   };
 
   render() {
@@ -62,7 +60,7 @@ class Login extends React.Component {
 
           <button className="button">
             {this.props.loggingIn ? (
-              <Loader type="ThreeDots" color="#1f2a38" height="12" width="26" />
+              <Loader type="ThreeDots" color="white" height="12" width="26" />
             ) : (
               <span>Login</span>
             )}

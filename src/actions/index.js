@@ -38,16 +38,6 @@ export const signup = creds => dispatch => {
     });
 };
 
-export const ADD_ITEM = 'ADD_ITEM';
-
-export const addItem = (item, id) => {
-  return {
-    type: ADD_ITEM,
-    payload: item,
-    id: id
-  };
-};
-
 export const FETCH_TRIPS_START = 'FETCH_TRIPS_START';
 export const FETCH_TRIPS_SUCCESS = 'FETCH_TRIPS_SUCCESS';
 export const FETCH_TRIPS_FAILURE = 'FETCH_TRIPS_FAILURE';
@@ -64,4 +54,65 @@ export const getTrips = () => dispatch => {
       console.log(err);
       dispatch({ type: FETCH_TRIPS_FAILURE });
     });
+};
+
+export const ADD_TRIP_START = 'ADD_TRIP_START';
+export const ADD_TRIP_SUCCESS = 'ADD_TRIP_SUCCESS';
+export const ADD_TRIP_FAILURE = 'ADD_TRIP_FAILURE';
+
+export const addTrip = trip => dispatch => {
+  dispatch({ type: ADD_TRIP_START });
+  axiosWithAuth()
+    .post('/api/trips/addTrip', trip)
+    .then(res => {
+      console.log(res);
+      dispatch({ type: ADD_TRIP_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      console.log(err.response);
+      dispatch({ type: ADD_TRIP_FAILURE });
+    });
+};
+
+export const DELETE_TRIP_START = 'DELETE_TRIP_START';
+export const DELETE_TRIP_SUCCESS = 'DELETE_TRIP_SUCCESS';
+
+export const delTrip = id => dispatch => {
+  dispatch({ type: DELETE_TRIP_START });
+  axiosWithAuth()
+    .delete(`/api/trips/${id}`)
+    .then(res => {
+      console.log(res);
+      dispatch({ type: DELETE_TRIP_SUCCESS });
+    })
+    .catch(err => {
+      console.log(err.response);
+    });
+};
+
+export const ADD_EXPENSES_START = 'ADD_EXPENSES_START';
+export const ADD_EXPENSES_SUCCESS = 'ADD_EXPENSES_SUCCESS';
+
+export const addExp = (tripId, exp) => dispatch => {
+  dispatch({ type: ADD_EXPENSES_START });
+  axiosWithAuth()
+    .post(`/api/trips/${tripId}/expenses`, exp)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => console.log(err));
+};
+
+export const DEL_EXP_START = 'DEL_EXP_START';
+export const DEL_EXP_SUCCESS = 'DEL_EXP_SUCCESS';
+
+export const delExp = (expId, tripId) => dispatch => {
+  dispatch({ type: DEL_EXP_START });
+  axiosWithAuth()
+    .delete(`/api/trips/${tripId}/expenses/${expId}`)
+    .then(res => {
+      console.log(res);
+      dispatch({ type: DEL_EXP_SUCCESS });
+    })
+    .catch(err => console.log(err));
 };

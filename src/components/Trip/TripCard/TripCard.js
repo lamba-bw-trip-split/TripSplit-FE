@@ -1,20 +1,60 @@
 import React from 'react';
-import ActivityList from '../ActivityList/ActivityList';
-import AddActivity from '../../AddActivity/AddActivity';
+import { axiosWithAuth } from '../../../axiosWithAuth';
+import Activity from '../Activity/Activity';
+import AddAcitivity from '../Activity/AddActivity';
 
-const TripCard = props => {
-  return (
-    <div>
-      <h2>Trip: {props.trip.name}</h2>
-      <p>Number of people: {props.trip.people.length}</p>
-      <ActivityList activities={props.trip.activities} />
-      <AddActivity
-        people={props.trip.people}
-        addItem={props.addItem}
-        id={props.trip.id}
-      />
-    </div>
-  );
-};
+class TripCard extends React.Component {
+  state = {
+    trip: null,
+    expenses: null,
+    id: null
+  };
+
+  componentDidMount() {
+    const id = this.props.match.params.id;
+    this.fetchTrip(id);
+    this.fetchExpenses(id);
+    this.setState({
+      id: id
+    });
+  }
+
+  fetchTrip = id => {
+    axiosWithAuth()
+      .get(`/api/trips/${id}`)
+      .then(res => {
+        // console.log(res);
+        this.setState(() => ({ trip: res.data }));
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  fetchExpenses = id => {
+    axiosWithAuth()
+      .get(`/api/trips/${id}/expenses`)
+      .then(res => {
+        console.log(res);
+        this.setState(() => ({ expenses: res.data }));
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  render() {
+    return (
+      <div>
+        <h3>{this.state.trip && this.state.trip.description}</h3>
+        {this.state.expenses &&
+          this.state.expenses.map(exp => (
+            <Activity activity={exp} key={exp.expense_id} id={this.state.id} />
+          ))}
+        <AddAcitivity id={this.state.id} />
+      </div>
+    );
+  }
+}
 
 export default TripCard;

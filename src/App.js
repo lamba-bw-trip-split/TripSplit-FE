@@ -6,8 +6,10 @@ import TripCard from './components/Trip/TripCard/TripCard';
 import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
+import { withRouter } from 'react-router-dom';
 
 import './App.scss';
+const AddTripWithRouther = withRouter(TripCard);
 
 function App() {
   return (
@@ -33,7 +35,8 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
         <PrivateRoute exact path="/trips" component={TripsList} />
-        <PrivateRoute exact path="/tirps/:id" component={TripCard} />
+        <PrivateRoute exact path="/trips/:id" component={AddTripWithRouther} />
+        {/* <Route exact path="/" component={AddTrip} /> */}
       </header>
     </div>
   );
