@@ -45,7 +45,7 @@ class AddTrip extends React.Component {
         trip_end: ''
       }
     });
-    // this.props.reloade();
+    this.props.reloade();
   };
 
   render() {

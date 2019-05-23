@@ -2,6 +2,8 @@ import React from 'react';
 import { axiosWithAuth } from '../../../axiosWithAuth';
 import Activity from '../Activity/Activity';
 import AddAcitivity from '../Activity/AddActivity';
+import { getMembers } from '../../../actions';
+import { connect } from 'react-redux';
 
 class TripCard extends React.Component {
   state = {
@@ -17,6 +19,7 @@ class TripCard extends React.Component {
     this.setState({
       id: id
     });
+    this.props.getMembers(id);
   }
 
   fetchTrip = id => {
@@ -51,10 +54,26 @@ class TripCard extends React.Component {
           this.state.expenses.map(exp => (
             <Activity activity={exp} key={exp.expense_id} id={this.state.id} />
           ))}
+        {this.props.members &&
+          this.props.members.map((member, i) => (
+            <span key={i}>
+              {member.username}
+              {' - '}
+            </span>
+          ))}
         <AddAcitivity id={this.state.id} />
       </div>
     );
   }
 }
 
-export default TripCard;
+const mapStateToProps = state => {
+  return {
+    members: state.members
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getMembers }
+)(TripCard);

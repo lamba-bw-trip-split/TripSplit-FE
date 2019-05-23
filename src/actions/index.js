@@ -116,3 +116,19 @@ export const delExp = (expId, tripId) => dispatch => {
     })
     .catch(err => console.log(err));
 };
+
+export const GET_MEMBER_START = 'GET_MEMBER_START';
+export const GET_MEMBER_SUCCESS = 'GET_MEMBER_SUCCESS';
+
+export const getMembers = id => dispatch => {
+  dispatch({ type: GET_MEMBER_START });
+  axiosWithAuth()
+    .get(`/api/trips/${id}/members`)
+    .then(res => {
+      console.log(res);
+      dispatch({ type: GET_MEMBER_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};

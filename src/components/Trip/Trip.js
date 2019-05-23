@@ -13,7 +13,7 @@ class Trip extends React.Component {
   }
 
   render() {
-    console.log(this.props.trip.trip_id);
+    // console.log(this.props.trip.trip_id);
     return (
       <>
         <div>

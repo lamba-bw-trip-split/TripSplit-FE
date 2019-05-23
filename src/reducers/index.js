@@ -10,7 +10,9 @@ import {
   FETCH_TRIPS_FAILURE,
   ADD_TRIP_START,
   ADD_TRIP_SUCCESS,
-  ADD_TRIP_FAILURE
+  ADD_TRIP_FAILURE,
+  GET_MEMBER_START,
+  GET_MEMBER_SUCCESS
 } from '../actions';
 
 const initialState = {
@@ -24,7 +26,8 @@ const initialState = {
   signupMsg: '',
   signedUp: false,
   fetchTrips: false,
-  dataUpdate: false
+  dataUpdate: false,
+  members: []
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -106,6 +109,15 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         dataUpdate: false
+      };
+    case GET_MEMBER_START:
+      return {
+        ...state
+      };
+    case GET_MEMBER_SUCCESS:
+      return {
+        ...state,
+        members: action.payload
       };
 
     default:
