@@ -22,7 +22,9 @@ import {
 	FETCH_EXP_SUCCESS,
 	FETCH_EXP_FAILURE,
 	DEL_EXP_START,
-	DEL_EXP_SUCCESS
+	DEL_EXP_SUCCESS,
+	ADD_EXPENSES_START,
+	ADD_EXPENSES_SUCCESS
 } from "../actions";
 
 const initialState = {
@@ -188,6 +190,16 @@ export const rootReducer = (state = initialState, action) => {
 				expUpdate: false
 			};
 		case DEL_EXP_SUCCESS:
+			return {
+				...state,
+				expUpdate: true
+			};
+		case ADD_EXPENSES_START:
+			return {
+				...state,
+				expUpdate: false
+			};
+		case ADD_EXPENSES_SUCCESS:
 			return {
 				...state,
 				expUpdate: true

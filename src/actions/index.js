@@ -162,7 +162,7 @@ export const addExp = (tripId, exp) => dispatch => {
 	axiosWithAuth()
 		.post(`/api/trips/${tripId}/expenses`, exp)
 		.then(res => {
-			console.log(res);
+			dispatch({ type: ADD_EXPENSES_SUCCESS });
 		})
 		.catch(err => console.log(err));
 };
