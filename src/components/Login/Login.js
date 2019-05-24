@@ -66,7 +66,7 @@ class Login extends React.Component {
           </button>
         </form>
         <h4>
-          Don't have an account? <Link to="/signup">Register</Link>
+          Don't have an account? <Link to="/register">Register</Link>
         </h4>
       </div>
     );
