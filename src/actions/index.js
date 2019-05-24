@@ -68,14 +68,31 @@ export const getTrips = () => dispatch => {
 		});
 };
 
+export const REFRESH_TRIPS = "REFRESH_TRIPS";
+export const REFRESH_TRIPS_FINISHED = "REFRESH_TRIPS_FINISHED";
+
+export const refreshTrips = () => dispatch => {
+	axiosWithAuth()
+		.get("/api/trips")
+		.then(res => {
+			dispatch({ type: REFRESH_TRIPS, payload: res.data.trips });
+		})
+		.then(() => {
+			dispatch({ type: REFRESH_TRIPS_FINISHED });
+		});
+};
+
 export const ADD_TRIP_START = "ADD_TRIP_START";
 export const ADD_TRIP_SUCCESS = "ADD_TRIP_SUCCESS";
 export const ADD_TRIP_FAILURE = "ADD_TRIP_FAILURE";
 
 export const addTrip = trip => dispatch => {
 	dispatch({ type: ADD_TRIP_START });
+	console.log(trip);
+
 	axiosWithAuth()
-		.post("/api/trips/addTrip", trip)
+		// .post("/api/trips/addTrip", trip)
+		.post("https://tripsplitbe.herokuapp.com/api/trips/addTrip", trip)
 		.then(res => {
 			console.log(res);
 			dispatch({ type: ADD_TRIP_SUCCESS, payload: res.data });

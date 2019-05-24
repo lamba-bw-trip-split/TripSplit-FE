@@ -15,7 +15,9 @@ import {
 	GET_MEMBER_SUCCESS,
 	INITIAL_TOKEN_START,
 	INITIAL_TOKEN_SUCCESS,
-	INITIAL_TOKEN_FAILURE
+	INITIAL_TOKEN_FAILURE,
+	REFRESH_TRIPS,
+	REFRESH_TRIPS_FINISHED
 } from "../actions";
 
 const initialState = {
@@ -85,24 +87,22 @@ export const rootReducer = (state = initialState, action) => {
 			return {
 				...state,
 				error: "",
-				fetchTrips: true,
-				dataUpdate: true
+				fetchTrips: true
 			};
 		case FETCH_TRIPS_SUCCESS:
 			return {
 				...state,
 				fetchTrips: false,
 				error: "",
-				trips: action.payload,
-				dataUpdate: false
+				trips: action.payload
 			};
 		case FETCH_TRIPS_FAILURE:
 			return {
 				...state,
 				fetchTrips: false,
-				error: action.payload,
-				dataUpdate: false
+				error: action.payload
 			};
+
 		case ADD_TRIP_START:
 			return {
 				...state,
@@ -146,6 +146,17 @@ export const rootReducer = (state = initialState, action) => {
 				loggingIn: false,
 				isLoggedIn: false,
 				isLoggedOut: true
+			};
+		case REFRESH_TRIPS:
+			return {
+				...state,
+				dataUpdate: true,
+				trips: action.payload
+			};
+		case REFRESH_TRIPS_FINISHED:
+			return {
+				...state,
+				dataUpdate: false
 			};
 
 		default:
