@@ -32,9 +32,7 @@ class Signup extends React.Component {
   render() {
     return (
       <div className="login-form">
-        <h3>
-          Already have an account? Click to {<Link to="/login">Log in</Link>}
-        </h3>
+        <h3>Already have an account? Click to {<Link to="/">Log in</Link>}</h3>
         <form className="form" onSubmit={this.signup}>
           <label htmlFor="username">Username</label>
           <input
