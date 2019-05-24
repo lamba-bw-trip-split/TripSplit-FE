@@ -38,7 +38,7 @@ class TripCard extends React.Component {
 		axiosWithAuth()
 			.get(`/api/trips/${id}/expenses`)
 			.then(res => {
-				console.log(res);
+				console.log("from res:", res);
 				this.setState(() => ({ expenses: res.data }));
 			})
 			.catch(error => {
@@ -47,6 +47,8 @@ class TripCard extends React.Component {
 	};
 
 	render() {
+		console.log("from expenses:", this.state.expenses);
+
 		return (
 			<div>
 				<h3>{this.state.trip && this.state.trip.description}</h3>
