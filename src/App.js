@@ -10,6 +10,7 @@ import { mountTokenCheck } from "./actions/";
 
 import "./App.scss";
 import Header from "./header/header";
+const AddTripWithRouther = withRouter(TripCard);
 
 class App extends React.Component {
 	componentDidMount() {
@@ -25,6 +26,11 @@ class App extends React.Component {
 				<div className='App '>
 					<Switch>
 						<PrivateRoute exact path='/trips' component={TripsList} />
+						<PrivateRoute
+							exact
+							path='/trips/:id'
+							component={AddTripWithRouther}
+						/>
 						<Route exact path='/' component={Login} />
 						<Route exact path='/register' component={SignUp} />
 					</Switch>
