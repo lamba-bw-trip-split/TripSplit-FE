@@ -3,11 +3,14 @@ import { axiosWithAuth } from '../../../axiosWithAuth';
 
 class AddMember extends React.Component {
   state = {
-    username: ''
+    user: {
+      username: ''
+    }
   };
 
   handleChange = e => {
     this.setState({
+      ...this.state.user,
       [e.target.name]: e.target.value
     });
   };
@@ -16,7 +19,7 @@ class AddMember extends React.Component {
     e.preventDefault();
 
     axiosWithAuth()
-      .post(`/api/trips/${this.props.id}/members`, this.state.username)
+      .post(`/api/trips/${this.props.id}/members`, this.state.user)
       .then(res => {
         console.log(res);
       })
@@ -34,7 +37,7 @@ class AddMember extends React.Component {
             type="text"
             name="username"
             placeholder="Username"
-            value={this.state.username}
+            value={this.state.user.username}
             onChange={this.handleChange}
           />
           <button onClick={this.addMember}>Add</button>
