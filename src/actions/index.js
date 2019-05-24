@@ -68,6 +68,38 @@ export const getTrips = () => dispatch => {
 		});
 };
 
+export const FETCH_EXP_START = "FETCH_EXP_START";
+export const FETCH_EXP_SUCCESS = "FETCH_EXP_SUCCESS";
+export const FETCH_EXP_FAILURE = "FETCH_EXP_FAILURE";
+
+export const getExp = tripId => dispatch => {
+	dispatch({ type: FETCH_EXP_START });
+	axiosWithAuth()
+		.get(`/api/trips/${tripId}/expenses`)
+		.then(res => {
+			console.log(res);
+			dispatch({ type: FETCH_EXP_SUCCESS, payload: res.data });
+		})
+		.catch(err => {
+			console.log(err);
+			dispatch({ type: FETCH_EXP_FAILURE });
+		});
+};
+
+export const DEL_EXP_START = "DEL_EXP_START";
+export const DEL_EXP_SUCCESS = "DEL_EXP_SUCCESS";
+
+export const delExp = (expId, tripId) => dispatch => {
+	dispatch({ type: DEL_EXP_START });
+	axiosWithAuth()
+		.delete(`/api/trips/${tripId}/expenses/${expId}`)
+		.then(res => {
+			console.log(res);
+			dispatch({ type: DEL_EXP_SUCCESS });
+		})
+		.catch(err => console.log(err));
+};
+
 export const REFRESH_TRIPS = "REFRESH_TRIPS";
 export const REFRESH_TRIPS_FINISHED = "REFRESH_TRIPS_FINISHED";
 
@@ -95,7 +127,10 @@ export const addTrip = trip => dispatch => {
 		.post("https://tripsplitbe.herokuapp.com/api/trips/addTrip", trip)
 		.then(res => {
 			console.log(res);
-			dispatch({ type: ADD_TRIP_SUCCESS, payload: res.data });
+			dispatch({
+				type: ADD_TRIP_SUCCESS,
+				payload: res.data
+			});
 		})
 		.catch(err => {
 			console.log(err.response);
@@ -128,20 +163,6 @@ export const addExp = (tripId, exp) => dispatch => {
 		.post(`/api/trips/${tripId}/expenses`, exp)
 		.then(res => {
 			console.log(res);
-		})
-		.catch(err => console.log(err));
-};
-
-export const DEL_EXP_START = "DEL_EXP_START";
-export const DEL_EXP_SUCCESS = "DEL_EXP_SUCCESS";
-
-export const delExp = (expId, tripId) => dispatch => {
-	dispatch({ type: DEL_EXP_START });
-	axiosWithAuth()
-		.delete(`/api/trips/${tripId}/expenses/${expId}`)
-		.then(res => {
-			console.log(res);
-			dispatch({ type: DEL_EXP_SUCCESS });
 		})
 		.catch(err => console.log(err));
 };
