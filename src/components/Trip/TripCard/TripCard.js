@@ -2,7 +2,7 @@ import React from "react";
 import { axiosWithAuth } from "../../../axiosWithAuth";
 import Activity from "../Activity/Activity";
 import AddAcitivity from "../Activity/AddActivity";
-import { getMembers } from "../../../actions";
+import { getMembers, getExp } from "../../../actions";
 import { connect } from "react-redux";
 
 class TripCard extends React.Component {
@@ -35,15 +35,20 @@ class TripCard extends React.Component {
 	};
 
 	fetchExpenses = id => {
-		axiosWithAuth()
-			.get(`/api/trips/${id}/expenses`)
-			.then(res => {
-				console.log("from res:", res);
-				this.setState(() => ({ expenses: res.data }));
-			})
-			.catch(error => {
-				console.error(error);
-			});
+		// axiosWithAuth()
+		// 	.get(`/api/trips/${id}/expenses`)
+		// 	.then(res => {
+		// 		console.log("from res:", res);
+		// 		if (this.props.expenses.length > 0) {
+		// 			this.setState(() => ({ expenses: this.props.expenses }));
+		// 		} else {
+		// 			this.setState(() => ({ expenses: res.data }));
+		// 		}
+		// 	})
+		// 	.catch(error => {
+		// 		console.error(error);
+		// 	});
+		this.props.getExp(id);
 	};
 
 	render() {
@@ -52,10 +57,13 @@ class TripCard extends React.Component {
 		return (
 			<div>
 				<h3>{this.state.trip && this.state.trip.description}</h3>
-				{this.state.expenses &&
-					this.state.expenses.map(exp => (
-						<Activity activity={exp} key={exp.expense_id} id={this.state.id} />
+				{this.props.expenses &&
+					this.props.expenses.map(exp => (
+						<Activity activity={exp} key={exp.expense_id} id={exp.expense_id} />
 					))}
+				{this.props.expUpdate
+					? this.props.getExp(this.props.match.params.id)
+					: null}
 				{this.props.members &&
 					this.props.members.map((member, i) => (
 						<span key={i}>
@@ -71,11 +79,13 @@ class TripCard extends React.Component {
 
 const mapStateToProps = state => {
 	return {
-		members: state.members
+		members: state.members,
+		expenses: state.newExp,
+		expUpdate: state.expUpdate
 	};
 };
 
 export default connect(
 	mapStateToProps,
-	{ getMembers }
+	{ getMembers, getExp }
 )(TripCard);

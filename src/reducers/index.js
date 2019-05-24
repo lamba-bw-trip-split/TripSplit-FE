@@ -17,12 +17,18 @@ import {
 	INITIAL_TOKEN_SUCCESS,
 	INITIAL_TOKEN_FAILURE,
 	REFRESH_TRIPS,
-	REFRESH_TRIPS_FINISHED
+	REFRESH_TRIPS_FINISHED,
+	FETCH_EXP_START,
+	FETCH_EXP_SUCCESS,
+	FETCH_EXP_FAILURE,
+	DEL_EXP_START,
+	DEL_EXP_SUCCESS
 } from "../actions";
 
 const initialState = {
 	trips: [],
 	pastTrips: [],
+	newExp: [],
 	loggingIn: false,
 	token: localStorage.getItem("token"),
 	error: "",
@@ -32,6 +38,7 @@ const initialState = {
 	signedUp: false,
 	fetchTrips: false,
 	dataUpdate: false,
+	expUpdate: false,
 	members: [],
 	isLoggedIn: null,
 	isLoggedOut: null
@@ -94,7 +101,8 @@ export const rootReducer = (state = initialState, action) => {
 				...state,
 				fetchTrips: false,
 				error: "",
-				trips: action.payload
+				trips: action.payload,
+				dataUpdate: false
 			};
 		case FETCH_TRIPS_FAILURE:
 			return {
@@ -106,12 +114,12 @@ export const rootReducer = (state = initialState, action) => {
 		case ADD_TRIP_START:
 			return {
 				...state,
-				dataUpdate: true
+				dataUpdate: false
 			};
 		case ADD_TRIP_SUCCESS:
 			return {
 				...state,
-				dataUpdate: false
+				dataUpdate: true
 			};
 		case ADD_TRIP_FAILURE:
 			return {
@@ -158,7 +166,32 @@ export const rootReducer = (state = initialState, action) => {
 				...state,
 				dataUpdate: false
 			};
-
+		case FETCH_EXP_START:
+			return {
+				...state,
+				expUpdate: true
+			};
+		case FETCH_EXP_SUCCESS:
+			return {
+				...state,
+				expUpdate: false,
+				newExp: action.payload
+			};
+		case FETCH_EXP_FAILURE:
+			return {
+				...state,
+				expUpdate: false
+			};
+		case DEL_EXP_START:
+			return {
+				...state,
+				expUpdate: false
+			};
+		case DEL_EXP_SUCCESS:
+			return {
+				...state,
+				expUpdate: true
+			};
 		default:
 			return state;
 	}
