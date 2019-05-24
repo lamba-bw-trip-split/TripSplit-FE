@@ -78,3 +78,29 @@ $btnFontColor: white;
   @include cbtn(250px, 50px, $btnColor, $btnFontColor, $btnFontSize);
   outline: none;
 }
+
+.login-form {
+  width: 100%;
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    label {
+      font-size: 20px;
+      margin: 10x 0;
+    }
+
+    input {
+      height: 50px;
+      width: 250px;
+    }
+    .error {
+      border: 2px solid red;
+      padding: 30px;
+
+      margin: 20px 0;
+      font-size: 20px;
+    }
+  }
+}
