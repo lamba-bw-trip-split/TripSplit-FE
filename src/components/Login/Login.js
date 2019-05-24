@@ -36,7 +36,7 @@ class Login extends React.Component {
   render() {
     return (
       <div className="login-form">
-        {this.props.signupMsg && <h2>this.props.signupMsg</h2>}
+        {this.props.signupMsg && <h2>{this.props.signupMsg}</h2>}
         <form className="form" onSubmit={this.login}>
           <label htmlFor="username">Username</label>
           <input
