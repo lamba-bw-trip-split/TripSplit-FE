@@ -12,7 +12,10 @@ import {
 	ADD_TRIP_SUCCESS,
 	ADD_TRIP_FAILURE,
 	GET_MEMBER_START,
-	GET_MEMBER_SUCCESS
+	GET_MEMBER_SUCCESS,
+	INITIAL_TOKEN_START,
+	INITIAL_TOKEN_SUCCESS,
+	INITIAL_TOKEN_FAILURE
 } from "../actions";
 
 const initialState = {
@@ -28,8 +31,8 @@ const initialState = {
 	fetchTrips: false,
 	dataUpdate: false,
 	members: [],
-	isLoggedIn: false,
-	isLoggedOut: true
+	isLoggedIn: null,
+	isLoggedOut: null
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -123,6 +126,26 @@ export const rootReducer = (state = initialState, action) => {
 			return {
 				...state,
 				members: action.payload
+			};
+		case INITIAL_TOKEN_START:
+			return {
+				...state,
+				loggingIn: true
+			};
+		case INITIAL_TOKEN_SUCCESS:
+			return {
+				...state,
+				loggingIn: false,
+				isLoggedIn: true,
+				isLoggedOut: false,
+				token: action.payload
+			};
+		case INITIAL_TOKEN_FAILURE:
+			return {
+				...state,
+				loggingIn: false,
+				isLoggedIn: false,
+				isLoggedOut: true
 			};
 
 		default:

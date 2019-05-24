@@ -7,6 +7,11 @@ export const INITIAL_TOKEN_FAILURE = "INITIAL_TOKEN_FAILURE";
 
 export const mountTokenCheck = token => dispatch => {
 	dispatch({ type: INITIAL_TOKEN_START });
+	if (localStorage.getItem("token")) {
+		dispatch({ type: INITIAL_TOKEN_SUCCESS, payload: token });
+	} else {
+		dispatch({ type: INITIAL_TOKEN_FAILURE });
+	}
 };
 
 export const LOGIN_START = "LOGIN_START";
@@ -19,7 +24,7 @@ export const login = creds => dispatch => {
 		.post("https://tripsplitbe.herokuapp.com/auth/login", creds)
 		.then(res => {
 			localStorage.setItem("token", res.data.token);
-			dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+			dispatch({ type: LOGIN_SUCCESS, payload: res.data.token });
 		})
 		.catch(err => {
 			console.log(err);
