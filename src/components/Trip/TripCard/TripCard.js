@@ -86,7 +86,7 @@ class TripCard extends React.Component {
           : null}
         {this.props.members &&
           this.props.members.map((member, i) => (
-            <span key={i}>
+            <span className="members" key={i}>
               {member.username}
               {' - '}
             </span>
